@@ -51,6 +51,5 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'bluefinwebapp'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0D116AB21AD640F0A92FA959BA832D9B }}
-          package: .
+          publish-profile: $
+          package: ./dist/bluefinwebapp
