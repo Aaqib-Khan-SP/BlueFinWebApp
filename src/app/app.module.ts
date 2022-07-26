@@ -12,7 +12,6 @@ import { FooterComponent } from './footer/footer.component';
 import { CartItemComponent } from './shopping-cart/cart-item/cart-item.component';
 import { ItemDetailsComponent } from './shopping-list/item-details/item-details.component';
 import { HeaderComponent } from './header/header.component';
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
 import { LoginComponent } from './login/login.component';
 
@@ -33,15 +32,9 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FontAwesomeModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(library: FaIconLibrary) {
-    library.addIconPacks(fas);
-    library.addIcons(faCoffee);
-  }
- }
+export class AppModule {}
