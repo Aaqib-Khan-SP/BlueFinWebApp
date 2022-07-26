@@ -14,6 +14,7 @@ import { ItemDetailsComponent } from './shopping-list/item-details/item-details.
 import { HeaderComponent } from './header/header.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
     FooterComponent,
     CartItemComponent,
     ItemDetailsComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
