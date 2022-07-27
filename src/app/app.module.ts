@@ -12,7 +12,6 @@ import { FooterComponent } from './footer/footer.component';
 import { CartItemComponent } from './shopping-cart/cart-item/cart-item.component';
 import { ItemDetailsComponent } from './shopping-list/item-details/item-details.component';
 import { HeaderComponent } from './header/header.component';
-import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
