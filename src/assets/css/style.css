@@ -5773,13 +5773,14 @@ p{
     position:relative;
     margin-bottom:1rem;
     transition:box-shadow .35s ease;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
     background-color:#fff
 }
 .owl-carousel .product{
     margin-bottom:0 !important
 }
 .product:hover{
-    box-shadow:0 5px 20px rgba(0,0,0,0.05)
+    box-shadow:0 5px 20px rgba(0,0,0,0.10)
 }
 .product-media{
     position:relative;
