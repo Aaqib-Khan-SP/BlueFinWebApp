@@ -4,16 +4,16 @@
 
         <ul class="nav nav-pills justify-content-center" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="new-women-link" data-toggle="tab" href="#new-women-tab" role="tab" aria-controls="new-women-tab" aria-selected="true">Womens Clothing</a>
+                <a class="nav-link" [ngClass]="{'active' : tab =='newwomentab'}" (click)="setTab('newwomentab')">Womens Clothing</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="new-men-link" data-toggle="tab" href="#new-men-tab" role="tab" aria-controls="new-men-tab" aria-selected="false">Mens Clothing</a>
+                <a class="nav-link" [ngClass]="{'active' : tab =='newmentab'}"  (click)="setTab('newmentab')">Mens Clothing</a>
             </li>
         </ul>
     </div><!-- End .heading -->
 
     <div class="tab-content">
-        <div class="tab-pane p-0 fade show active" id="new-women-tab" role="tabpanel" aria-labelledby="new-women-link">
+        <div class="tab-pane p-0 fade show active" [hidden]="tab !='newwomentab'" role="tabpanel" >
             <div class="products">
                 <div class="row justify-content-center">
                     <div class="col-6 col-md-4 col-lg-4 col-xl-6col">
@@ -323,7 +323,7 @@
                 </div><!-- End .row -->
             </div><!-- End .products -->
         </div><!-- .End .tab-pane -->
-        <div class="tab-pane p-0 fade" id="new-men-tab" role="tabpanel" aria-labelledby="new-men-link">
+        <div class="tab-pane p-0 fade show active" [hidden]="tab !='newmentab'" role="tabpanel">
             <div class="products">
                 <div class="row justify-content-center">
                     <div class="col-6 col-md-4 col-lg-4 col-xl-6col">

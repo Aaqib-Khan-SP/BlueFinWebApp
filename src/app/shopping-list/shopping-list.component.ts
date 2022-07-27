@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-
+  tab:string='newwomentab';
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  setTab(tab: string) {
+    this.tab = tab;
   }
 
 }
