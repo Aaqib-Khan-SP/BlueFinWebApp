@@ -1453,7 +1453,7 @@ blockquote.text-white cite span{
         display:none
     }
     .cart-dropdown{
-        padding-left:1.4rem
+        padding-left:0rem;
     }
 }
 @media (max-width: 340px){
@@ -1584,8 +1584,8 @@ blockquote.text-white cite span{
     position:relative
 }
 .menu.sf-arrows .sf-with-ul::after{
-    font-family:'molla';
-    content:'\f110';
+    /* font-family:'molla'; */
+    /* content:'\f110'; */
     position:absolute;
     right:0;
     top:50%;
