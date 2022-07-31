@@ -11,8 +11,8 @@ export class AppComponent implements OnInit {
     // this.loadJsFile("../../assets/js/script.js");
     this.loadJsFile("../../assets/js/jquery.min.js");
     this.loadJsFile("../../assets/js/bootstrap.bundle.min.js");
-    this.loadJsFile("../../assets/js/main.js");
     this.loadJsFile("../../assets/js/jquery.waypoints.min.js");
+    this.loadJsFile("../../assets/js/main.js");
   }
   public loadJsFile(url :string) {  
     let node = document.createElement('script');  

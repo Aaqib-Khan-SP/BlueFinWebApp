@@ -14,15 +14,15 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" [hidden]="tab != 'signin'">
-                                <form action="#">
+                                <form [formGroup] = 'signInFormGroup' (ngSubmit)="onSubmit()">
                                     <div class="form-group">
-                                        <label for="singin-email-2">Username or email address *</label>
-                                        <input type="text" class="form-control" id="singin-email-2" name="singin-email" required>
+                                        <label for="singin-email-2">Phone Number *</label>
+                                        <input formControlName="phoneNumber" type="text" class="form-control" id="singin-email-2" name="singin-email" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
                                         <label for="singin-password-2">Password *</label>
-                                        <input type="password" class="form-control" id="singin-password-2" name="singin-password" required>
+                                        <input formControlName="password" type="password" class="form-control" id="singin-password-2" name="singin-password" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-footer">
