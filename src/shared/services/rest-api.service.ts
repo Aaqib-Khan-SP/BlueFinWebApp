@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class RestApiService {
 
   constructor(private http:HttpClient) { }
-  baseURL = 'http://bluefinapi.azurewebsites.net/api/';
+  baseURL = 'https://bluefinapi.azurewebsites.net/api/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
