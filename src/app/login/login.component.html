@@ -6,23 +6,27 @@
                     <div class="form-tab">
                         <ul class="nav nav-pills nav-fill" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" [ngClass]="{'active' : tab =='signin'}" (click)="setTab('signin')">Sign In</a>
+                                <a class="nav-link" [ngClass]="{'active' : tab =='signin'}"
+                                    (click)="setTab('signin')">Sign In</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" [ngClass]="{'active' : tab =='register'}" (click)="setTab('register')">Register</a>
+                                <a class="nav-link" [ngClass]="{'active' : tab =='register'}"
+                                    (click)="setTab('register')">Register</a>
                             </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" [hidden]="tab != 'signin'">
-                                <form [formGroup] = 'signInFormGroup' (ngSubmit)="onSubmit()">
+                                <form [formGroup]='signInFormGroup' (ngSubmit)="onLoginSubmit()">
                                     <div class="form-group">
                                         <label for="singin-email-2">Phone Number *</label>
-                                        <input formControlName="phoneNumber" type="text" class="form-control" id="singin-email-2" name="singin-email" required>
+                                        <input formControlName="phoneNumber" type="text" class="form-control"
+                                            id="singin-email-2" name="singin-email" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
                                         <label for="singin-password-2">Password *</label>
-                                        <input formControlName="password" type="password" class="form-control" id="singin-password-2" name="singin-password" required>
+                                        <input formControlName="password" type="password" class="form-control"
+                                            id="singin-password-2" name="singin-password" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-footer">
@@ -33,7 +37,8 @@
 
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="signin-remember-2">
-                                            <label class="custom-control-label" for="signin-remember-2">Remember Me</label>
+                                            <label class="custom-control-label" for="signin-remember-2">Remember
+                                                Me</label>
                                         </div><!-- End .custom-checkbox -->
 
                                         <a href="#" class="forgot-link">Forgot Your Password?</a>
@@ -44,8 +49,8 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <a href="#" class="btn btn-login btn-g">
-                                                <i class="icon-google"></i>
-                                                Login With Google
+                                                <!-- <i class="icon-login"></i> -->
+                                                Login With Okta
                                             </a>
                                         </div><!-- End .col-6 -->
                                         <div class="col-sm-6">
@@ -58,36 +63,57 @@
                                 </div><!-- End .form-choice -->
                             </div><!-- .End .tab-pane -->
                             <div class="tab-pane fade show active" [hidden]="tab != 'register'">
-                                <form action="#">
-                                    <div class="form-group">
-                                        <label for="register-email-2">Your email address *</label>
-                                        <input type="email" class="form-control" id="register-email-2" name="register-email" required>
-                                    </div><!-- End .form-group -->
+                                <form [formGroup]='registerFormGroup' (ngSubmit)="onRegisterSubmit()">
+                                    <div #signinForm>
+                                        <div class="form-group">
+                                            <label for="register-email-2">Email ID *</label>
+                                            <input formControlName="emailId" type="email" class="form-control" id="register-email-3"
+                                                name="register-email1" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="register-email-2">Phone Number * (with country code)</label>
+                                            <input formControlName="phoneNumber" type="text" class="form-control" id="register-email-2"
+                                                name="register-email2" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="register-password-2">Password *</label>
+                                            <input formControlName="password" type="password" class="form-control" id="register-password-2"
+                                                name="register-password" required>
+                                        </div>
+                                        <div id="recaptcha-container"></div>
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>Proceed</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
 
-                                    <div class="form-group">
-                                        <label for="register-password-2">Password *</label>
-                                        <input type="password" class="form-control" id="register-password-2" name="register-password" required>
-                                    </div><!-- End .form-group -->
-
-                                    <div class="form-footer">
-                                        <button type="submit" class="btn btn-outline-primary-2">
-                                            <span>SIGN UP</span>
-                                            <i class="icon-long-arrow-right"></i>
-                                        </button>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
-                                            <label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label>
-                                        </div><!-- End .custom-checkbox -->
-                                    </div><!-- End .form-footer -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="register-policy-2" required>
+                                                <label class="custom-control-label" for="register-policy-2">I agree to
+                                                    the <a href="#">privacy policy</a> *</label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .form-footer -->
+                                    </div>
                                 </form>
+                                <form *ngIf="showOTP" (ngSubmit)="verifyOTP()">
+                                    <div class="form-group">
+                                        <label for="register-password-2">OTP *</label>
+                                        <input [(ngModel)]="otp" type="text" class="form-control" id="register-password-2" name="register-password"
+                                            required>
+                                    </div>
+                                    <button style="width:100%;" type="submit" class="btn btn-outline-primary-2">
+                                        <span>SIGN UP</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                </form><br>
                                 <div class="form-choice">
                                     <p class="text-center">or sign in with</p>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <a href="#" class="btn btn-login btn-g">
-                                                <i class="icon-google"></i>
-                                                Login With Google
+                                                <!-- <i class="icon-google"></i> -->
+                                                Login With Okta
                                             </a>
                                         </div><!-- End .col-6 -->
                                         <div class="col-sm-6">

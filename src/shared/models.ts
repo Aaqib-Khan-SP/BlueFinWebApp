@@ -2,12 +2,23 @@ export interface Order {
 }
 
 export class Credentials {
+    userId?: string;
     phoneNumber: string;
     password: string;
-    constructor(phoneNumber: string, password: string) {
-        this.phoneNumber = phoneNumber;
-        this.password = password;
+    emailId?: string
+
+    constructor(
+        userId: string,
+        phoneNumber: string,
+        password: string,
+        emailId: string
+    ) {
+        this.userId = userId
+        this.phoneNumber = phoneNumber
+        this.password = password
+        this.emailId = emailId
     }
+
 }
 
 export class Item {
