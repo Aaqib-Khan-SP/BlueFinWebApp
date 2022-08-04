@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Credentials } from 'src/shared/models';
 import { RestApiService } from 'src/shared/services/rest-api.service';
 import { FirebaseAuthenticationService } from 'src/shared/services/firebase-authentication.service';
+import { LocalStorageService } from 'src/shared/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   OTPFormGroup: FormGroup;
   credentials: Credentials;
 
-  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService) {
+  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService,private localStorageService:LocalStorageService) {
   }
 
   ngOnInit(): void {
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
     this.credentials = this.signInFormGroup.value;
     this.restAPIService.login(this.credentials).subscribe(
       data => {
-        console.log(data.token);
+        this.localStorageService.setAccessToken(data.token);
       }
     );
   }

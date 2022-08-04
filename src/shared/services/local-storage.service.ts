@@ -16,4 +16,12 @@ export class LocalStorageService {
   getStock():Item[]{
     return JSON.parse(localStorage.getItem(GlobalConstants.STOCK) || '{}');
   }
+
+  getAccessToken():string{
+    return JSON.parse(localStorage.getItem(GlobalConstants.ACCESS_TOKEN) || '{}');
+  }
+
+  setAccessToken(token:string){
+    localStorage.setItem(GlobalConstants.ACCESS_TOKEN,JSON.stringify(token));
+  }
 }

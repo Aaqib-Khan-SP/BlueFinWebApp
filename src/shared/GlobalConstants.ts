@@ -1,4 +1,6 @@
 export class GlobalConstants{
-    public static ORDERS = 'orders';
-    public static STOCK = 'stock';
+    public static readonly ORDERS = 'orders';
+    public static readonly STOCK = 'stock';
+    public static readonly ACCESS_TOKEN = 'access_token';
+
 }

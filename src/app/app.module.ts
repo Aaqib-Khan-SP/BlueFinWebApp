@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { WindowService } from 'src/shared/services/window.service';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
+import { HeadersInterceptor } from 'src/shared/services/interceptors/headers.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,13 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [WindowService],
+  providers: [
+    WindowService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeadersInterceptor,
+      multi:true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
