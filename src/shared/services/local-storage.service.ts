@@ -9,19 +9,29 @@ export class LocalStorageService {
 
   constructor() { }
 
-  updateStock(stock : Stock){
-    localStorage.setItem(GlobalConstants.STOCK,JSON.stringify(stock));
+  updateStock(stock: Stock) {
+    localStorage.setItem(GlobalConstants.STOCK, JSON.stringify(stock));
   }
 
-  getStock():Item[]{
+  getStock(): Item[] {
     return JSON.parse(localStorage.getItem(GlobalConstants.STOCK) || '{}');
   }
 
-  getAccessToken():string{
+  getAccessToken(): string {
     return JSON.parse(localStorage.getItem(GlobalConstants.ACCESS_TOKEN) || '{}');
   }
 
-  setAccessToken(token:string){
-    localStorage.setItem(GlobalConstants.ACCESS_TOKEN,JSON.stringify(token));
+  setAccessToken(token: string) {
+    localStorage.setItem(GlobalConstants.ACCESS_TOKEN, JSON.stringify(token));
+  }
+
+  getCartItems():Item[]  {
+    return JSON.parse(localStorage.getItem(GlobalConstants.CART) || '[]')
+  }
+
+  addItemToCart(item: Item) {
+    let items :Item[] = this.getCartItems();
+    items.push(item);
+    localStorage.setItem(GlobalConstants.CART,JSON.stringify(items));
   }
 }
