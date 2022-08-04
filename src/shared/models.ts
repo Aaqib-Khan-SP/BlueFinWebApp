@@ -27,8 +27,8 @@ export class Item {
     localName: string;
     imageURL: string;
     shopID: string;
-    quantity: string;
-    rate: string;
+    quantity: number;
+    rate: number;
 
     constructor(
         itemId: string,
@@ -36,8 +36,8 @@ export class Item {
         localName: string,
         imageURL: string,
         shopID: string,
-        quantity: string,
-        rate: string
+        quantity: number,
+        rate: number
     ) {
         this.itemId = itemId
         this.name = name

@@ -6,14 +6,14 @@ import { Item } from '../models';
 })
 export class DataTransmitterService {
 
-  private cartItem = new BehaviorSubject(new Item('','','','','','',''));
+  private cartItem = new BehaviorSubject( Item as unknown as Item);
   currentCartItem = this.cartItem.asObservable();
 
   constructor() { 
 
   }
   
-  updateCartItems(item :Item){
+  updateCartItems(item:Item){
     this.cartItem.next(item);
   }
 }
