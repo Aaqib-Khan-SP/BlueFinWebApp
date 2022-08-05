@@ -3,6 +3,7 @@ import { Item, Stock } from 'src/shared/models';
 import { DataTransmitterService } from 'src/shared/services/data-transmitter.service';
 import { LocalStorageService } from 'src/shared/services/local-storage.service';
 import { RestApiService } from 'src/shared/services/rest-api.service';
+import { SharedService } from 'src/shared/services/shared.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -12,7 +13,8 @@ import { RestApiService } from 'src/shared/services/rest-api.service';
 export class ShoppingListComponent implements OnInit {
   tab: string = 'newwomentab';
   stock: Item[];
-  constructor(private restAPIService: RestApiService, private localStorageService: LocalStorageService,private dataTransmitter:DataTransmitterService) { }
+  cartItems: Item[];
+  constructor(private restAPIService: RestApiService, private localStorageService: LocalStorageService, private dataTransmitter: DataTransmitterService,private sharedService:SharedService) { }
   ngOnInit(): void {
     this.getStock();
     this.stock = this.localStorageService.getStock();
@@ -27,9 +29,18 @@ export class ShoppingListComponent implements OnInit {
     );
   }
 
-  addItemToCart(item : Item){
-    this.localStorageService.addItemToCart(item);
-    this.dataTransmitter.updateCartItems(item);
+  addItemToCart(item: Item) {
+    this.cartItems = this.localStorageService.getCartItems();
+    let existingItem: Item  = this.sharedService.updateItemIfExists(item,this.cartItems);
+    let index = this.sharedService.getItemIndexInList(item,this.cartItems);
+    if (index != -1){
+      this.localStorageService.updateItemInCart(index,existingItem);
+      this.dataTransmitter.updateCartItems(existingItem);
+    }
+    else{
+      this.localStorageService.addItemToCart(item);
+      this.dataTransmitter.updateCartItems(item);
+    }
   }
 
   setTab(tab: string) {
