@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Credentials } from '../models';
+import { Credentials, Order } from '../models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,5 +26,9 @@ export class RestApiService {
 
   getStock(shopID: string): Observable<any> {
     return this.http.get(this.baseURL + "Domain/GetItems/" + shopID, this.httpOptions);
+  }
+
+  placeOrder(order : Order):Observable<any>{
+    return this.http.post(this.baseURL + "Order/AddOrder", order, this.httpOptions);
   }
 }
