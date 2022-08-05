@@ -4,6 +4,7 @@ import { Credentials } from 'src/shared/models';
 import { RestApiService } from 'src/shared/services/rest-api.service';
 import { FirebaseAuthenticationService } from 'src/shared/services/firebase-authentication.service';
 import { LocalStorageService } from 'src/shared/services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   OTPFormGroup: FormGroup;
   credentials: Credentials;
 
-  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService,private localStorageService:LocalStorageService) {
+  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService,private localStorageService:LocalStorageService,private router :Router) {
   }
 
   ngOnInit(): void {
@@ -57,6 +58,7 @@ export class LoginComponent implements OnInit {
     this.restAPIService.login(this.credentials).subscribe(
       data => {
         this.localStorageService.setAccessToken(data.token);
+        this.router.navigateByUrl('/');
       }
     );
   }

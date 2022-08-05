@@ -41,9 +41,22 @@ export class LocalStorageService {
     localStorage.setItem(GlobalConstants.CART, JSON.stringify(items));
   }
 
-  removeItemInCart(index:number){
+  removeItemInCart(index: number) {
     let items: Item[] = this.getCartItems();
-    items.splice(index,1);
+    items.splice(index, 1);
     localStorage.setItem(GlobalConstants.CART, JSON.stringify(items));
   }
+
+  deleteAccessToken() {
+    localStorage.removeItem(GlobalConstants.ACCESS_TOKEN);
+  }
+
+  isAccessTokenSet() {
+    let token = localStorage.getItem(GlobalConstants.ACCESS_TOKEN);
+    if (token == null || token == undefined) {
+      return false;
+    }
+    else { return true; }
+  }
+
 }

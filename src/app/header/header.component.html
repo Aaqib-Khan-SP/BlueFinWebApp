@@ -28,8 +28,11 @@
 
             <div class="header-right">
                 <ul class="menu sf-arrows">
-                    <li class="megamenu-container">
+                    <li *ngIf="!isTokenSet" class="megamenu-container">
                         <a routerLink="/login" style="padding:10px;">LOGIN</a>
+                    </li>
+                    <li *ngIf="isTokenSet" class="megamenu-container">
+                        <a (click)="logOut()" style="padding:10px;">LOG OUT</a>
                     </li>
                 </ul>
 

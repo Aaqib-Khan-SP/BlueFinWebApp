@@ -35,6 +35,14 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  get isTokenSet(){
+    return this.localStorageService.isAccessTokenSet()
+  }
+  
+  logOut(){
+    this.localStorageService.deleteAccessToken();
+  }
+
   removeItemFromCart(item:Item){
     let index = this.sharedService.getItemIndexInList(item,this.cart);
     if(index != -1){
