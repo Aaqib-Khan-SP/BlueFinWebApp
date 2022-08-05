@@ -14216,7 +14216,8 @@ button:focus{
     content:'\f18f'
 }
 .icon-close:before{
-    content:'\f191'
+    content:'\f191';
+    font-size:20px;
 }
 .icon-vimeo-square:before{
     content:'\f194'
