@@ -35,6 +35,10 @@ export class LocalStorageService {
     localStorage.setItem(GlobalConstants.CART, JSON.stringify(items));
   }
 
+  addItemsToCart(items : Item[]){
+    localStorage.setItem(GlobalConstants.CART, JSON.stringify(items));
+  }
+
   updateItemInCart(index: number, item: Item) {
     let items: Item[] = this.getCartItems();
     items[index] = item;

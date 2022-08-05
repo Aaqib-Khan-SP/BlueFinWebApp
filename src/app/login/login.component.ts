@@ -1,10 +1,11 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Credentials } from 'src/shared/models';
+import { Credentials, Item } from 'src/shared/models';
 import { RestApiService } from 'src/shared/services/rest-api.service';
 import { FirebaseAuthenticationService } from 'src/shared/services/firebase-authentication.service';
 import { LocalStorageService } from 'src/shared/services/local-storage.service';
 import { Router } from '@angular/router';
+import { DataTransmitterService } from 'src/shared/services/data-transmitter.service';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +24,8 @@ export class LoginComponent implements OnInit {
   registerFormGroup: FormGroup;
   OTPFormGroup: FormGroup;
   credentials: Credentials;
-
-  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService,private localStorageService:LocalStorageService,private router :Router) {
+  cartItems :Item[];
+  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService,private localStorageService:LocalStorageService,private router :Router,private dataTransmitter :DataTransmitterService) {
   }
 
   ngOnInit(): void {
@@ -57,7 +58,12 @@ export class LoginComponent implements OnInit {
     this.credentials = this.signInFormGroup.value;
     this.restAPIService.login(this.credentials).subscribe(
       data => {
+        this.cartItems = data.cartItems;
         this.localStorageService.setAccessToken(data.token);
+        this.cartItems.forEach(item =>{
+          this.localStorageService.addItemToCart(item);
+          this.dataTransmitter.updateCartItems(item)
+        } );
         this.router.navigateByUrl('/');
       }
     );

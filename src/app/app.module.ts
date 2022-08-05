@@ -20,6 +20,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
 import { HeadersInterceptor } from 'src/shared/services/interceptors/headers.interceptor';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { HeadersInterceptor } from 'src/shared/services/interceptors/headers.int
     CartItemComponent,
     ItemDetailsComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    CheckoutComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
