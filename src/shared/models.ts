@@ -1,6 +1,3 @@
-export interface Order {
-}
-
 export class Credentials {
     userId?: string;
     phoneNumber: string;
@@ -53,6 +50,109 @@ export class Stock {
     items: Item[];
 
     constructor(items: Item[]) {
+        this.items = items
+    }
+}
+
+export class AddressDetails {
+    type?: string;
+    addressLine1: string;
+    addressLine2: string;
+    district: string;
+    city: string;
+    pincode: number;
+    landmark: string;
+
+    constructor(
+        addressLine1: string,
+        addressLine2: string,
+        district: string,
+        city: string,
+        pincode: number,
+        landmark: string
+    ) {
+        this.addressLine1 = addressLine1
+        this.addressLine2 = addressLine2
+        this.district = district
+        this.city = city
+        this.pincode = pincode
+        this.landmark = landmark
+    }
+}
+
+export class ContactInfo {
+    phoneNumber: string;
+    alternateNumber: string;
+    emailId: string;
+
+    constructor(phoneNumber: string, alternateNumber: string, emailId: string) {
+        this.phoneNumber = phoneNumber
+        this.alternateNumber = alternateNumber
+        this.emailId = emailId
+    }
+}
+
+export class CustomerInfo {
+    customerId: string;
+    firstName: string;
+    lastName: string;
+    contactInfo: ContactInfo;
+
+    constructor(
+        customerId: string,
+        firstName: string,
+        lastName: string,
+        contactInfo: ContactInfo
+    ) {
+        this.customerId = customerId
+        this.firstName = firstName
+        this.lastName = lastName
+        this.contactInfo = contactInfo
+    }
+}
+
+export class CustomerInfoForOrder extends CustomerInfo {
+    addressDetails: AddressDetails;
+}
+
+export class CustomerFullDetails extends CustomerInfo {
+    addresses: AddressDetails[];
+}
+
+export class TrackingItem {
+    status: string;
+    time: string;
+    constructor(status: string, time: string) {
+        this.status = status
+        this.time = time
+    }
+}
+
+export class TrackingDetails {
+    trackingId: string;
+    trackingItem: TrackingItem[];
+    constructor(trackingId: string, trackingItem: TrackingItem[]) {
+        this.trackingId = trackingId
+        this.trackingItem = trackingItem
+    }
+}
+
+export class Order {
+    orderId?: string;
+    shopId: number;
+    orderDateTime: Date = new Date;
+    transactionId: string;
+    customerInfo: CustomerInfoForOrder;
+    items: Item[];
+    trackingDetails: TrackingDetails;
+
+    constructor(
+        shopId: number,
+        customerInfo: CustomerInfoForOrder,
+        items: Item[],
+    ) {
+        this.shopId = shopId
+        this.customerInfo = customerInfo
         this.items = items
     }
 }

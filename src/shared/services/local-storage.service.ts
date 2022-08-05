@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalConstants } from '../GlobalConstants';
-import { Item, Stock } from '../models';
+import { CustomerFullDetails, Item, Order, Stock } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class LocalStorageService {
     localStorage.setItem(GlobalConstants.CART, JSON.stringify(items));
   }
 
-  addItemsToCart(items : Item[]){
+  addItemsToCart(items: Item[]) {
     localStorage.setItem(GlobalConstants.CART, JSON.stringify(items));
   }
 
@@ -51,8 +51,15 @@ export class LocalStorageService {
     localStorage.setItem(GlobalConstants.CART, JSON.stringify(items));
   }
 
-  deleteAccessToken() {
+  deleteUserData() {
+    localStorage.removeItem(GlobalConstants.CART);
+    localStorage.removeItem(GlobalConstants.CUSTOMER_DETAILS);
     localStorage.removeItem(GlobalConstants.ACCESS_TOKEN);
+    localStorage.removeItem(GlobalConstants.ORDERS);
+  }
+
+  emptyCart(){
+    localStorage.removeItem(GlobalConstants.CART);
   }
 
   isAccessTokenSet() {
@@ -61,6 +68,18 @@ export class LocalStorageService {
       return false;
     }
     else { return true; }
+  }
+
+  getCustomerData() {
+    return JSON.parse(localStorage.getItem(GlobalConstants.CUSTOMER_DETAILS) || '{}')
+  }
+
+  setCustomerData(customerDetails: CustomerFullDetails) {
+    localStorage.setItem(GlobalConstants.CUSTOMER_DETAILS, JSON.stringify(customerDetails));
+  }
+
+  setCustomerOrders(orders :Order[]){
+    localStorage.setItem(GlobalConstants.ORDERS, JSON.stringify(orders));
   }
 
 }

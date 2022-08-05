@@ -60,6 +60,8 @@ export class LoginComponent implements OnInit {
       data => {
         this.cartItems = data.cartItems;
         this.localStorageService.setAccessToken(data.token);
+        this.localStorageService.setCustomerData(data.customerDetails);
+        this.localStorageService.setCustomerOrders(data.orders);
         this.cartItems.forEach(item =>{
           this.localStorageService.addItemToCart(item);
           this.dataTransmitter.updateCartItems(item)
