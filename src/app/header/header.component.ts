@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Item } from 'src/shared/models';
 import { DataTransmitterService } from 'src/shared/services/data-transmitter.service';
 import { LocalStorageService } from 'src/shared/services/local-storage.service';
+import { RestApiService } from 'src/shared/services/rest-api.service';
 import { SharedService } from 'src/shared/services/shared.service';
 @Component({
   selector: 'app-header',
@@ -12,7 +14,11 @@ export class HeaderComponent implements OnInit {
   count: number = 0;
   cart: Item[];
   total: number;
-  constructor(private localStorageService: LocalStorageService, private dataTransmitterService: DataTransmitterService, private sharedService: SharedService) { }
+  constructor(private localStorageService: LocalStorageService,
+    private dataTransmitterService: DataTransmitterService, 
+    private sharedService: SharedService,
+    private restAPIService : RestApiService,
+    private router :Router) { }
 
   ngOnInit(): void {
     this.cart = this.localStorageService.getCartItems();
@@ -41,6 +47,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.localStorageService.deleteUserData();
+    this.router.navigateByUrl('/');
   }
 
   removeItemFromCart(item: Item) {
@@ -49,6 +56,10 @@ export class HeaderComponent implements OnInit {
       this.total = this.total - this.cart[index].rate * this.cart[index].quantity
       this.cart.splice(index, 1);
       this.localStorageService.removeItemInCart(index);
+      this.restAPIService.deleteItemInCart(item.itemId).subscribe(
+      data =>{
+        //item deleted from cart
+      });
       this.count--;
     }
   }

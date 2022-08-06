@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Credentials, Order } from '../models';
+import { Credentials, Item, Order } from '../models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,8 +16,12 @@ export class RestApiService {
     })
   };
 
-  login(credentials: Credentials): Observable<any> {
-    return this.http.post(this.baseURL + "Login/login", credentials, this.httpOptions);
+  getToken(credentials: Credentials): Observable<any> {
+    return this.http.post(this.baseURL + "Login/getToken", credentials, this.httpOptions);
+  }
+
+  login(): Observable<any> {
+    return this.http.get(this.baseURL + "Login/login", this.httpOptions);
   }
 
   register(credentials: Credentials) {
@@ -28,7 +32,15 @@ export class RestApiService {
     return this.http.get(this.baseURL + "Domain/GetItems/" + shopID, this.httpOptions);
   }
 
-  placeOrder(order : Order):Observable<any>{
+  placeOrder(order: Order): Observable<any> {
     return this.http.post(this.baseURL + "Order/AddOrder", order, this.httpOptions);
+  }
+
+  deleteItemInCart(itemId :string):Observable<any>{
+    return this.http.delete(this.baseURL + "Cart/removeItem/"+itemId, this.httpOptions);
+  }
+
+  addItemInCart(item:Item):Observable<any>{
+    return this.http.post(this.baseURL + "Cart/addItem", item, this.httpOptions);
   }
 }

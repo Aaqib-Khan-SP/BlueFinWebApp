@@ -1,32 +1,40 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <div class="soon-content text-center">
-                <div class="soon-content-wrapper">
-                    <img src="assets/images/logo.png" alt="Logo" class="soon-logo mx-auto" width="250" height="32">
-                    <h1 class="soon-title">Coming Soon</h1><!-- End .soon-title -->
-                    <hr class="mt-2 mb-3 mt-md-3">
-                    <p>We are currently working on this section. Stay tuned for more information.</p>
-                    <form action="#">
-                        <div class="input-group mb-5">
-                            <input type="email" class="form-control bg-transparent" placeholder="Enter your Email Address" required>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-primary-2" type="submit">
-                                    <span>SUBSCRIBE</span>
-                                    <i class="icon-long-arrow-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="social-icons justify-content-center mb-0">
-                        <a class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                        <a class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                        <a class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                        <a class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-                        <a class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
-                    </div><!-- End .soial-icons -->
-                </div><!-- End .soon-content-wrapper -->
-            </div><!-- End .soon-content -->
-        </div><!-- End .col-md-9 col-lg-8 -->
+        <div class="col-lg-12">
+            <table class="table table-cart table-mobile">
+                <thead>
+                    <tr>
+                        <th>Orders</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let order of orders">
+                        <td class="product-col">
+                            <div class="product">
+                                <figure class="product-media">
+                                    <a>
+                                        <img src="{{order.items[0].imageURL}}" alt="Product image">
+                                    </a>
+                                </figure>
+
+                                <h3 class="product-title">
+                                    <a *ngIf="order.items.length == 1">{{order.items[0].name}}</a>
+                                    <a *ngIf="order.items.length > 1">{{order.items[0].name}} and {{order.items.length - 1}} more.</a>
+                                </h3><!-- End .product-title -->
+                            </div><!-- End .product -->
+                        </td>
+                        <td class="product-title">{{convertDate(order.orderDateTime)}}</td>
+                        <td class="product-title">{{getOrderStatus(order)}}</td>
+                        <td></td>
+                        <td class="product-title">₹{{getTotalForOrder(order)}}/-</td>
+                    </tr>
+                </tbody>
+            </table><!-- End .table table-wishlist -->
+        </div>
     </div><!-- End .row -->
 </div>

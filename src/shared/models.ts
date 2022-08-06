@@ -96,23 +96,30 @@ export class CustomerInfo {
     customerId: string;
     firstName: string;
     lastName: string;
+    primaryOutletId :string;
     contactInfo: ContactInfo;
 
     constructor(
         customerId: string,
         firstName: string,
         lastName: string,
+        primaryOutletId :string,
         contactInfo: ContactInfo
     ) {
         this.customerId = customerId
         this.firstName = firstName
         this.lastName = lastName
+        this.primaryOutletId = primaryOutletId
         this.contactInfo = contactInfo
     }
 }
 
 export class CustomerInfoForOrder extends CustomerInfo {
     addressDetails: AddressDetails;
+    constructor(customerId: string,firstName: string,lastName: string,primaryOutletId :string,contactInfo: ContactInfo, addressDetails: AddressDetails) {
+        super(customerId, firstName, lastName, primaryOutletId,contactInfo);
+        this.addressDetails = addressDetails
+    }
 }
 
 export class CustomerFullDetails extends CustomerInfo {
@@ -130,16 +137,15 @@ export class TrackingItem {
 
 export class TrackingDetails {
     trackingId: string;
-    trackingItem: TrackingItem[];
+    trackingItems: TrackingItem[];
     constructor(trackingId: string, trackingItem: TrackingItem[]) {
         this.trackingId = trackingId
-        this.trackingItem = trackingItem
+        this.trackingItems = trackingItem
     }
 }
 
 export class Order {
     orderId?: string;
-    shopId: number;
     orderDateTime: Date = new Date;
     transactionId: string;
     customerInfo: CustomerInfoForOrder;
@@ -147,12 +153,19 @@ export class Order {
     trackingDetails: TrackingDetails;
 
     constructor(
-        shopId: number,
         customerInfo: CustomerInfoForOrder,
         items: Item[],
     ) {
-        this.shopId = shopId
         this.customerInfo = customerInfo
         this.items = items
+    }
+}
+
+export class CustomerData {
+    customerDetails: CustomerFullDetails;
+    orders: Order[];
+    constructor(customerDetails: CustomerFullDetails, orders: Order[]) {
+        this.customerDetails = customerDetails
+        this.orders = orders
     }
 }

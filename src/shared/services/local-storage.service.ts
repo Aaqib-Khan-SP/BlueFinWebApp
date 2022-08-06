@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalConstants } from '../GlobalConstants';
-import { CustomerFullDetails, Item, Order, Stock } from '../models';
+import { CustomerData, CustomerFullDetails, Item, Order, Stock } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -53,12 +53,11 @@ export class LocalStorageService {
 
   deleteUserData() {
     localStorage.removeItem(GlobalConstants.CART);
-    localStorage.removeItem(GlobalConstants.CUSTOMER_DETAILS);
+    localStorage.removeItem(GlobalConstants.CUSTOMER_DATA);
     localStorage.removeItem(GlobalConstants.ACCESS_TOKEN);
-    localStorage.removeItem(GlobalConstants.ORDERS);
   }
 
-  emptyCart(){
+  emptyCart() {
     localStorage.removeItem(GlobalConstants.CART);
   }
 
@@ -70,16 +69,38 @@ export class LocalStorageService {
     else { return true; }
   }
 
-  getCustomerData() {
-    return JSON.parse(localStorage.getItem(GlobalConstants.CUSTOMER_DETAILS) || '{}')
+  getCustomerData():CustomerData {
+    return JSON.parse(localStorage.getItem(GlobalConstants.CUSTOMER_DATA) || '{}')
   }
 
-  setCustomerData(customerDetails: CustomerFullDetails) {
-    localStorage.setItem(GlobalConstants.CUSTOMER_DETAILS, JSON.stringify(customerDetails));
+  setCustomerData(customerData: CustomerData) {
+    localStorage.setItem(GlobalConstants.CUSTOMER_DATA, JSON.stringify(customerData));
   }
 
-  setCustomerOrders(orders :Order[]){
-    localStorage.setItem(GlobalConstants.ORDERS, JSON.stringify(orders));
+  updateCustomerDetails(customerDetails: CustomerFullDetails) {
+    let customerData: CustomerData = this.getCustomerData();
+    customerData.customerDetails = customerDetails
+    localStorage.setItem(GlobalConstants.CUSTOMER_DATA, JSON.stringify(customerData));
+  }
+
+  updateCustomerOrder(order: Order) {
+    let customerData: CustomerData = this.getCustomerData();
+    let index: number = customerData.orders.findIndex(o => o.orderId == order.orderId);
+    if (index != -1) {
+      customerData.orders[index] = order;
+      localStorage.setItem(GlobalConstants.CUSTOMER_DATA, JSON.stringify(customerData));
+    }
+  }
+  
+  refreshCustomerOrders(order:Order){
+    let customerData: CustomerData = this.getCustomerData();
+    customerData.orders.push(order);
+    this.setCustomerData(customerData);
+  }
+
+  getCustomerOrders(){
+    let customerData: CustomerData = this.getCustomerData();
+    return customerData.orders;
   }
 
 }

@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   registerFormGroup: FormGroup;
   OTPFormGroup: FormGroup;
   credentials: Credentials;
-  cartItems :Item[];
-  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService,private localStorageService:LocalStorageService,private router :Router,private dataTransmitter :DataTransmitterService) {
+  cartItems: Item[];
+  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService, private localStorageService: LocalStorageService, private router: Router, private dataTransmitter: DataTransmitterService) {
   }
 
   ngOnInit(): void {
@@ -56,19 +56,21 @@ export class LoginComponent implements OnInit {
 
   onLoginSubmit() {
     this.credentials = this.signInFormGroup.value;
-    this.restAPIService.login(this.credentials).subscribe(
-      data => {
-        this.cartItems = data.cartItems;
-        this.localStorageService.setAccessToken(data.token);
-        this.localStorageService.setCustomerData(data.customerDetails);
-        this.localStorageService.setCustomerOrders(data.orders);
-        this.cartItems.forEach(item =>{
-          this.localStorageService.addItemToCart(item);
-          this.dataTransmitter.updateCartItems(item)
-        } );
-        this.router.navigateByUrl('/');
-      }
-    );
+    this.restAPIService.getToken(this.credentials).subscribe(data => {
+      this.localStorageService.setAccessToken(data.data);
+      this.restAPIService.login().subscribe(
+        data => {
+          this.cartItems = data.data.cartItems;
+          this.localStorageService.setCustomerData(data.data);
+          this.cartItems.forEach(item => {
+            this.localStorageService.addItemToCart(item);
+            this.dataTransmitter.updateCartItems(item);
+          });
+          this.router.navigateByUrl('/orders');
+        }
+      );
+    });
+
   }
 
   onRegisterSubmit() {
@@ -81,7 +83,7 @@ export class LoginComponent implements OnInit {
   }
 
   verifyOTP() {
-    this.fbAuthService.verifyCode(this.otp).then((res:any) => {
+    this.fbAuthService.verifyCode(this.otp).then((res: any) => {
       this.credentials.userId = res;
       this.restAPIService.register(this.credentials).subscribe(
         data => {
