@@ -6,6 +6,7 @@ import { FirebaseAuthenticationService } from 'src/shared/services/firebase-auth
 import { LocalStorageService } from 'src/shared/services/local-storage.service';
 import { Router } from '@angular/router';
 import { DataTransmitterService } from 'src/shared/services/data-transmitter.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   OTPFormGroup: FormGroup;
   credentials: Credentials;
   cartItems: Item[];
-  constructor(private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService, private localStorageService: LocalStorageService, private router: Router, private dataTransmitter: DataTransmitterService) {
+  constructor(private spinner: NgxSpinnerService,private restAPIService: RestApiService, private fbAuthService: FirebaseAuthenticationService, private localStorageService: LocalStorageService, private router: Router, private dataTransmitter: DataTransmitterService) {
   }
 
   ngOnInit(): void {
@@ -56,21 +57,11 @@ export class LoginComponent implements OnInit {
 
   onLoginSubmit() {
     this.credentials = this.signInFormGroup.value;
+    this.spinner.show();
     this.restAPIService.getToken(this.credentials).subscribe(data => {
       this.localStorageService.setAccessToken(data.data);
-      this.restAPIService.login().subscribe(
-        data => {
-          this.cartItems = data.data.cartItems;
-          this.localStorageService.setCustomerData(data.data);
-          this.cartItems.forEach(item => {
-            this.localStorageService.addItemToCart(item);
-            this.dataTransmitter.updateCartItems(item);
-          });
-          this.router.navigateByUrl('/orders');
-        }
-      );
+      this.login();
     });
-
   }
 
   onRegisterSubmit() {
@@ -82,12 +73,30 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  login(){
+    this.restAPIService.login().subscribe(
+      data => {
+        this.cartItems = data.data.cartItems;
+        this.localStorageService.setCustomerData(data.data);
+        this.cartItems.forEach(item => {
+          this.localStorageService.addItemToCart(item);
+          this.dataTransmitter.updateCartItems(item);
+        });
+        this.spinner.hide();
+        this.router.navigateByUrl('/orders');
+      }
+    );
+  }
+  
   verifyOTP() {
+    this.spinner.show();
     this.fbAuthService.verifyCode(this.otp).then((res: any) => {
       this.credentials.userId = res;
       this.restAPIService.register(this.credentials).subscribe(
         data => {
-          console.log(data);
+          this.localStorageService.setAccessToken(data.data);
+          this.login();
+          this.router.navigateByUrl('/');
         }
       );
     });

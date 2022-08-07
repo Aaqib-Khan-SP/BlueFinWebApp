@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AddressDetails, ContactInfo, CustomerFullDetails, CustomerInfoForOrder, Item, Order } from 'src/shared/models';
 import { LocalStorageService } from 'src/shared/services/local-storage.service';
 import { RestApiService } from 'src/shared/services/rest-api.service';
@@ -19,7 +20,7 @@ export class CheckoutComponent implements OnInit {
   address: AddressDetails | undefined;
   addressFormGroup: FormGroup;
 
-  constructor(private localStorageService: LocalStorageService, private restAPIService: RestApiService,private router :Router) { }
+  constructor(private spinner: NgxSpinnerService, private localStorageService: LocalStorageService, private restAPIService: RestApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.cart = this.localStorageService.getCartItems();
@@ -45,13 +46,15 @@ export class CheckoutComponent implements OnInit {
   }
 
   placeOrder() {
+    this.spinner.show();
     let contactInfo = new ContactInfo(this.customerDetails.contactInfo.phoneNumber, this.customerDetails.contactInfo.alternateNumber, this.customerDetails.contactInfo.emailId);
-    let customerInfoForOrder = new CustomerInfoForOrder(this.customerDetails.customerId, this.customerDetails.firstName, this.customerDetails.lastName,this.customerDetails.primaryOutletId, contactInfo,this.address!);
+    let customerInfoForOrder = new CustomerInfoForOrder(this.customerDetails.customerId, this.customerDetails.firstName, this.customerDetails.lastName, this.customerDetails.primaryOutletId, contactInfo, this.address!);
     this.order = new Order(customerInfoForOrder, this.cart);
     this.restAPIService.placeOrder(this.order).subscribe(
       data => {
         this.localStorageService.refreshCustomerOrders(data);
         this.localStorageService.emptyCart();
+        this.spinner.hide();
         this.router.navigateByUrl('/orders');
       })
   }

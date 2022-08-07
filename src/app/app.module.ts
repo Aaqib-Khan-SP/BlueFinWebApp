@@ -21,6 +21,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
 import { HeadersInterceptor } from 'src/shared/services/interceptors/headers.interceptor';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
   ],
   providers: [
     WindowService,

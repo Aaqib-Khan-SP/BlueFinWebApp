@@ -24,7 +24,7 @@ export class RestApiService {
     return this.http.get(this.baseURL + "Login/login", this.httpOptions);
   }
 
-  register(credentials: Credentials) {
+  register(credentials: Credentials): Observable<any> {
     return this.http.post(this.baseURL + "Login/register", credentials, this.httpOptions);
   }
 
@@ -36,11 +36,11 @@ export class RestApiService {
     return this.http.post(this.baseURL + "Order/AddOrder", order, this.httpOptions);
   }
 
-  deleteItemInCart(itemId :string):Observable<any>{
-    return this.http.delete(this.baseURL + "Cart/removeItem/"+itemId, this.httpOptions);
+  deleteItemInCart(itemId: string): Observable<any> {
+    return this.http.delete(this.baseURL + "Cart/removeItem/" + itemId, this.httpOptions);
   }
 
-  addItemInCart(item:Item):Observable<any>{
+  addItemInCart(item: Item): Observable<any> {
     return this.http.post(this.baseURL + "Cart/addItem", item, this.httpOptions);
   }
 }
