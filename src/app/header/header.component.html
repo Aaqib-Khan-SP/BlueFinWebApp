@@ -16,10 +16,10 @@
                         <li class="megamenu-container">
                             <a routerLink="/" class="sf-with-ul">Home</a>
                         </li>
-                        <li class="megamenu-container">
+                        <li *ngIf="isTokenSet" class="megamenu-container">
                             <a routerLink="/myaccount" class="sf-with-ul">My Account</a>
                         </li>
-                        <li class="megamenu-container">
+                        <li *ngIf="isTokenSet" class="megamenu-container">
                             <a routerLink="/orders" class="sf-with-ul">My Orders</a>
                         </li>
                     </ul><!-- End .menu -->
@@ -95,10 +95,10 @@
                     <a routerLink="/">Home</a>
                 </li>
                 <li>
-                    <a routerLink="/">My Account</a>
+                    <a *ngIf="isTokenSet" routerLink="/myaccount">My Account</a>
                 </li>
                 <li>
-                    <a routerLink="/">My Orders</a>
+                    <a *ngIf="isTokenSet" routerLink="/orders">My Orders</a>
                 </li>
             </ul>
         </nav><!-- End .mobile-nav -->
