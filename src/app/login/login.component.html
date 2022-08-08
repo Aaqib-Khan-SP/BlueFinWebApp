@@ -18,7 +18,7 @@
                             <div class="tab-pane fade show active" [hidden]="tab != 'signin'">
                                 <form [formGroup]='signInFormGroup' (ngSubmit)="onLoginSubmit()">
                                     <div class="form-group">
-                                        <label for="singin-email-2">Phone Number *</label>
+                                        <label for="singin-email-2">Phone Number * (with country code)</label>
                                         <input formControlName="phoneNumber" type="text" class="form-control"
                                             id="singin-email-2" name="singin-email" required>
                                     </div>

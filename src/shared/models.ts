@@ -1,3 +1,11 @@
+export class ErrorResponse {
+    traceID: string;
+    userMessage: string;
+    constructor(traceID: string, userMessage: string) {
+        this.traceID = traceID
+        this.userMessage = userMessage
+    }
+}
 export class Credentials {
     userId?: string;
     phoneNumber: string;
@@ -96,14 +104,14 @@ export class CustomerInfo {
     customerId: string;
     firstName: string;
     lastName: string;
-    primaryOutletId :string;
+    primaryOutletId: string;
     contactInfo: ContactInfo;
 
     constructor(
         customerId: string,
         firstName: string,
         lastName: string,
-        primaryOutletId :string,
+        primaryOutletId: string,
         contactInfo: ContactInfo
     ) {
         this.customerId = customerId
@@ -116,8 +124,8 @@ export class CustomerInfo {
 
 export class CustomerInfoForOrder extends CustomerInfo {
     addressDetails: AddressDetails;
-    constructor(customerId: string,firstName: string,lastName: string,primaryOutletId :string,contactInfo: ContactInfo, addressDetails: AddressDetails) {
-        super(customerId, firstName, lastName, primaryOutletId,contactInfo);
+    constructor(customerId: string, firstName: string, lastName: string, primaryOutletId: string, contactInfo: ContactInfo, addressDetails: AddressDetails) {
+        super(customerId, firstName, lastName, primaryOutletId, contactInfo);
         this.addressDetails = addressDetails
     }
 }

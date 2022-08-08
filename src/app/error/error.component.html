@@ -1,0 +1,11 @@
+<div class="error-content text-center" style="background-image: url(assets/images/backgrounds/error-bg.jpg)">
+    <div class="container">
+        <h1 class="error-title">Oops!</h1><!-- End .error-title -->
+        <h5>{{errorResponse.userMessage}}</h5>
+        <a routerLink="/" class="btn btn-outline-primary-2 btn-minwidth-lg">
+            <span>BACK TO HOMEPAGE</span>
+            <i class="icon-long-arrow-right"></i>
+        </a>
+        <p *ngIf="errorResponse.traceID != ''" style="margin-top: 20px;">Trace ID : {{errorResponse.traceID}}</p>
+    </div><!-- End .container -->
+</div>

@@ -23,6 +23,7 @@ import { HeadersInterceptor } from 'src/shared/services/interceptors/headers.int
 import { CheckoutComponent } from './checkout/checkout.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     ItemDetailsComponent,
     HeaderComponent,
     LoginComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ErrorComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
