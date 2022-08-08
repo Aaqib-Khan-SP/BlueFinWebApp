@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Credentials, Item, Order } from '../models';
+import { Credentials, CustomerFullDetails, Item, Order } from '../models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -42,5 +42,9 @@ export class RestApiService {
 
   addItemInCart(item: Item): Observable<any> {
     return this.http.post(this.baseURL + "Cart/addItem", item, this.httpOptions);
+  }
+
+  updateUser(customerDetails :CustomerFullDetails):Observable<any> {
+    return this.http.put(this.baseURL + "User/update", customerDetails, this.httpOptions);
   }
 }

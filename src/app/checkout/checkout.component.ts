@@ -59,4 +59,14 @@ export class CheckoutComponent implements OnInit {
       })
   }
 
+  updateCustomerDetails(){
+    this.customerDetails.addresses[0] = this.address!;
+    this.localStorageService.updateCustomerDetails(this.customerDetails);
+    this.restAPIService.updateUser(this.customerDetails).subscribe(
+      data =>{
+        console.log(data);
+      }
+    )
+  }
+
 }

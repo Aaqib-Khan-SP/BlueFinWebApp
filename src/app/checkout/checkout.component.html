@@ -122,7 +122,7 @@
                         <label>Email address *</label>
                         <input [(ngModel)]="this.customerDetails.contactInfo.emailId" formControlName="emailId" type="email"
                             class="form-control" required>
-                        <button *ngIf="!addressButton" (click)="addressButton = !addressButton;addressFormGroup.disable();" type="submit"
+                        <button *ngIf="!addressButton" (click)="addressButton = !addressButton;updateCustomerDetails();addressFormGroup.disable();" type="submit"
                             class="btn btn-outline-primary-2 btn-order btn-block">
                             Save Changes
                         </button>
