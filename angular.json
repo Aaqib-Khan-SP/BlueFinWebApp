@@ -28,10 +28,15 @@
               "src/assets/css/reset.min.css",
               "src/assets/css/style.min.css",
               "src/assets/css/bootstrap.min.css",
+              "src/assets/css/magnific-popup.css",
               "src/assets/css/style.css"
             ],
             "scripts": [
-
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/js/jquery.waypoints.min.js",
+              "src/assets/js/jquery.magnific-popup.min.js",
+              "src/assets/js/main.js"
             ]
           },
           "configurations": {
