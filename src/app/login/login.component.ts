@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   private signInForm() {
     //password and phone number default due to issues in receiving otp internationally, only for demo purpose.
     this.signInFormGroup = new FormGroup({
-      phoneNumber: new FormControl('+917798400162', [Validators.required,Validators.minLength(13), Validators.maxLength(13)]),
+      phoneNumber: new FormControl('+919999999999', [Validators.required,Validators.minLength(13), Validators.maxLength(13)]),
       password: new FormControl('weakpassword', Validators.required),
     })
   }
